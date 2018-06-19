@@ -2,9 +2,10 @@ import React from "react";
 import "./Header.css";
 
 const Header = props => (
-  <div>
-  <h2>Test your memory! Click on each character once. If you click the same character twice, the game resets! </h2>
-  <h3>Score: {props.score}</h3>
+  <div className="text-center">
+  <h1>Memory Game</h1>
+  <h3>Test your memory! Click on each character once. If you click the same character twice, the game resets! </h3>
+  <h4>Score: {props.score}</h4>
   
   </div>
 );
