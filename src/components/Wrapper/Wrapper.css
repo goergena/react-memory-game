@@ -1,11 +1,21 @@
- /* .wrapper {
-  padding-top: 50px;
-  background: #ECEFF1;
-  height: 100%;
-  display: flex;
-  flex-flow: row wrap;
-  padding: 20px;
-  justify-content: space-around;
-  align-content: flex-start;
-  overflow: auto;
-}  */
+
+.wrapper {
+  margin: 20px auto;
+}
+
+@media (min-width: 200px) {
+  .card-columns {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 500px) {
+  .card-columns {
+    column-count: 3;
+  }
+}
+@media (min-width: 800px) {
+  .card-columns {
+    column-count: 4;
+  }
+}

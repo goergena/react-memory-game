@@ -2,7 +2,8 @@ import React from "react";
 import "./FriendCard.css";
 
 const FriendCard = props => (
-  <div  onClick= {() => props.handleClick(props.id)}  className="card">
+  <div onClick= {() => props.handleClick(props.id)}  
+       className={`card${props.shake ? " shake" : ""}`}>
     <div className="img-container">
       <img alt={props.name} src={props.image} />
     </div>

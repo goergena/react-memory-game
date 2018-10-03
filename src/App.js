@@ -9,7 +9,9 @@ import "./App.css";
 class App extends React.Component {
   state = {
     friends,
-    score: 0
+    score: 0,
+    highScore: 0,
+    winMessage: ""
   };
 
 
@@ -18,28 +20,36 @@ class App extends React.Component {
   }
 
   handleClick = idInput => {
-    let score = this.state.score;
     const chosenIndex=this.state.friends.findIndex(dude => dude.id===idInput);
 
-    if (friends[chosenIndex].clicked) {
-      console.log("you lost!");
-      score = 0;
-      friends.forEach(friend => {
-        friend.clicked= false;
-      });
-  
-    } else  {
-      friends[chosenIndex].clicked = "true";
-      score++;
-      if (score ===12) {
-        console.log("you win!")
-      }
-      this.shuffle(this.state.friends)
-  
-    }
-
-    this.setState({friends, score})
+    friends[chosenIndex].clicked ? 
+      this.handleWrongGuess() :
+      this.handleCorrectGuess(chosenIndex);
   }
+
+  handleWrongGuess = () => {
+    let score = this.state.score;
+    console.log("you lost!");
+    score = 0;
+    friends.forEach(friend => {
+      friend.clicked= false;
+    });
+    this.setState({friends, score})
+  };
+
+  handleCorrectGuess = (chosenIndex)=> {
+    let score = this.state.score;
+    let highScore = this.state.highScore;
+    friends[chosenIndex].clicked = "true";
+    score++;
+    const newHighScore = score > highScore ? score : highScore;
+
+  
+    this.setState({friends, score, highScore: newHighScore});
+    this.state.score === 12 ? this.displayWinMessage() :  this.shuffle(this.state.friends);
+
+  };
+
 
   shuffle = data => {
     let unshuffled = data.length - 1;
@@ -53,12 +63,23 @@ class App extends React.Component {
     return data;
   };
 
+  displayWinMessage = () => {
+    let winMessage = "You won! You have to refresh to restart right now."
+    this.setState({winMessage})
+  }
+
+
+
 
 
   render() {
     return (
    <div>
-     <Header score={this.state.score}/>
+     <Header 
+     score={this.state.score}
+     highScore={this.state.highScore}
+     winMessage = {this.state.winMessage}
+     />
       <Wrapper>
     
 
@@ -69,6 +90,7 @@ class App extends React.Component {
        key={character.id}
        image={character.image}
        clicked={character.clicked}
+       shake={!this.state.score && this.state.highScore}
      />)}
     
     </Wrapper>
