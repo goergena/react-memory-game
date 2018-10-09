@@ -11,7 +11,7 @@ class App extends React.Component {
     friends,
     score: 0,
     highScore: 0,
-    winMessage: ""
+    winMessage: 'Click on each character once! If you click on someone twice, you lose!'
   };
 
 
@@ -28,16 +28,13 @@ class App extends React.Component {
   }
 
   handleWrongGuess = () => {
-    let score = this.state.score;
-    console.log("you lost!");
-    score = 0;
-    friends.forEach(friend => {
-      friend.clicked= false;
-    });
-    this.setState({friends, score})
+    let newWinMsg = "Incorrect!"
+    this.setState({winMessage: newWinMsg});
+    this.resetGame();
   };
 
   handleCorrectGuess = (chosenIndex)=> {
+    let newWinMsg = 'Correct!';
     let score = this.state.score;
     let highScore = this.state.highScore;
     friends[chosenIndex].clicked = "true";
@@ -45,8 +42,8 @@ class App extends React.Component {
     const newHighScore = score > highScore ? score : highScore;
 
   
-    this.setState({friends, score, highScore: newHighScore});
-    this.state.score === 12 ? this.displayWinMessage() :  this.shuffle(this.state.friends);
+    this.setState({friends, score, highScore: newHighScore, winMessage: newWinMsg});
+    this.state.score === 11 ? this.displayWinMessage() :  this.shuffle(this.state.friends);
 
   };
 
@@ -64,10 +61,21 @@ class App extends React.Component {
   };
 
   displayWinMessage = () => {
-    let winMessage = "You won! You have to refresh to restart right now."
-    this.setState({winMessage})
+    let newWinMsg = "You won! Click any character to start again"
+    this.setState({winMessage: newWinMsg});
+    this.resetGame();
   }
 
+  resetGame = () => {
+    let score = this.state.score;
+    score = 0;
+    friends.forEach(friend => {
+      friend.clicked= false;
+    });
+    this.setState({friends, score})
+    this.shuffle(this.state.friends)
+
+  }
 
 
 
@@ -90,7 +98,7 @@ class App extends React.Component {
        key={character.id}
        image={character.image}
        clicked={character.clicked}
-       shake={!this.state.score && this.state.highScore}
+       shake={!this.state.score && this.state.highScore && this.state.highScore!==12}
      />)}
     
     </Wrapper>

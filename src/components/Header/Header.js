@@ -10,14 +10,13 @@ const Header = props => (
 </button>
 <div className="collapse navbar-collapse" id="navbarNav">
   <ul className="navbar-nav">
-    <li className="nav-item">
-    <a className="nav-link">Score: {props.score}</a> 
-    className={`card${props.shake ? " shake" : ""}`}>
+    <li className="nav-item nav-link">
+      Score: {props.score}
     </li>
-    <li className="nav-item">
-    <a className="nav-link">High Score: {props.highScore}</a> 
+    <li className="nav-item nav-link">
+      High Score: {props.highScore} 
     </li>
-    <li className="nav-item">
+    <li className="nav-item nav-link">
       {props.winMessage}
     </li>
   </ul>
