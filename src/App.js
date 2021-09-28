@@ -2,7 +2,8 @@ import React from "react";
 import FriendCard from "./components/FriendCard";
 import Wrapper from "./components/Wrapper";
 import Header from "./components/Header";
-import friends from "./friends.json";
+//import friends from "./friends.json";
+import friends from "./data";
 import "./App.css";
 
 
